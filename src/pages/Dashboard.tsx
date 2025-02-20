@@ -1,98 +1,66 @@
 import Layout from "../Layout";
-import { FaRegHeart } from "react-icons/fa";
-import { FaRegCommentDots } from "react-icons/fa6";
-import { useState } from "react";
-import PostInfoPopupModal from "../components/ui/PostInfoPopupModal";
+import { useState, useEffect } from "react";
+import { InstagramMedia } from "../utils/interfaces";
+import PostInfo from "../components/ui/PostInfo";
+import Post from "../components/common/Post";
 
 const Dashboard = () => {
-  const [showPostDetails, setShowPostDetails] = useState(false);
+  const [showPostDetails, setShowPostDetails] = useState<boolean>(false);
+  const [activePost, setActivePost] = useState<InstagramMedia>();
+  const [posts, setPosts] = useState<InstagramMedia[]>([]);
+  const fetchMedia = async () => {
+    try {
+      const response = await fetch(
+        "https://graph.instagram.com/v21.0/8599394353405207/media?fields=id,caption,media_type,media_url,timestamp&access_token=IGQWRPRkJ3OWFlc0wzSnpRYkhrcC1idlNIYjg5MDNZAY0dnYmV1akUxS3d1NWQ3RHZAPUGdXSk8xNTY0WGhjekM3RGZAjMzBKbkJvTVdaZA2ZAmcVJEYTJyb2ZAkMnVfWG13cEhRR0ZAwWm1fVUpkYjZAkOHo0QlJmdUJ6aWMZD"
+      );
+      const data = await response.json();
+      setPosts(data.data);
+    } catch (error) {
+      console.error("Error fetching media data: ", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMedia();
+  }, []);
   // Sample post data - replace with your actual data
-  const posts = [
-    { id: 1, likes: 234, comments: 12 },
-    { id: 2, likes: 543, comments: 24 },
-    { id: 3, likes: 876, comments: 45 },
-    { id: 4, likes: 234, comments: 15 },
-    { id: 5, likes: 432, comments: 32 },
-    { id: 6, likes: 654, comments: 21 },
-    { id: 7, likes: 345, comments: 43 },
-    { id: 8, likes: 567, comments: 56 },
-    { id: 9, likes: 789, comments: 67 },
-    { id: 10, likes: 234, comments: 12 },
-    { id: 11, likes: 543, comments: 24 },
-    { id: 12, likes: 876, comments: 45 },
-    { id: 13, likes: 234, comments: 15 },
-    { id: 14, likes: 432, comments: 32 },
-    { id: 15, likes: 654, comments: 21 },
-    { id: 16, likes: 345, comments: 43 },
-    { id: 17, likes: 567, comments: 56 },
-    { id: 18, likes: 789, comments: 67 },
-    { id: 19, likes: 234, comments: 12 },
-    { id: 20, likes: 543, comments: 24 },
-    { id: 21, likes: 876, comments: 45 },
-    { id: 22, likes: 234, comments: 15 },
-    { id: 23, likes: 432, comments: 32 },
-    { id: 24, likes: 654, comments: 21 },
-    { id: 25, likes: 345, comments: 43 },
-    { id: 26, likes: 567, comments: 56 },
-    { id: 27, likes: 789, comments: 67 },
-    { id: 28, likes: 234, comments: 12 },
-    { id: 29, likes: 543, comments: 24 },
-    { id: 30, likes: 876, comments: 45 },
-    { id: 31, likes: 234, comments: 15 },
-    { id: 32, likes: 432, comments: 32 },
-    { id: 33, likes: 654, comments: 21 },
-    { id: 34, likes: 345, comments: 43 },
-    { id: 35, likes: 567, comments: 56 },
-    { id: 36, likes: 789, comments: 67 },
-    { id: 37, likes: 234, comments: 12 },
-    { id: 38, likes: 543, comments: 24 },
-    { id: 39, likes: 876, comments: 45 },
-    { id: 40, likes: 234, comments: 15 },
-    { id: 41, likes: 432, comments: 32 },
-    { id: 42, likes: 654, comments: 21 },
-  ];
 
   return (
     <Layout>
       <div className="p-6">
-        <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
-        <div className="flex flex-wrap gap-4 max-h-[calc(100vh-8rem)] overflow-y-auto">
-          {posts.map((post) => (
-            <div
-              key={post.id}
-              className="group relative aspect-square cursor-pointer overflow-hidden bg-gray-100 rounded-lg h-52 w-52"
-              onClick={() => setShowPostDetails(true)}
-            >
-              {/* Placeholder image - replace src with your actual image path */}
-              <img
-                src={`https://placehold.co/400x400`}
-                alt={`Post ${post.id}`}
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-              />
+        <div className="flex items-center gap-4">
+          <h2 className="text-2xl font-bold mb-6 w-1/2">Media</h2>
+          <h2 className="text-2xl font-bold mb-6 w-1/2">Media Details</h2>
+        </div>
 
-              {/* Overlay on hover */}
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <div className="flex gap-6 text-white">
-                  <div className="flex items-center gap-2">
-                    <FaRegHeart size={20} color="white" />
-                    <span className="font-semibold">{post.likes}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <FaRegCommentDots size={20} color="white" />
-                    <span className="font-semibold">{post.comments}</span>
-                  </div>
-                </div>
-              </div>
+        <div className="grid grid-cols-2 gap-4">
+          {/* Fixed height wrapper for posts */}
+          <div className="flex flex-col max-h-[calc(100vh-10rem)] overflow-y-auto">
+            <div className="flex flex-wrap gap-4">
+              {posts.map((post: InstagramMedia) => (
+                <Post
+                  key={post.id}
+                  post={post}
+                  setActivePost={setActivePost}
+                  setShowPostDetails={setShowPostDetails}
+                />
+              ))}
             </div>
-          ))}
+          </div>
+
+          {/* Post Details Section - Do not let it affect flex sibling height */}
+          <div className="h-full overflow-y-auto">
+            {showPostDetails ? (
+              <PostInfo
+                postDetails={activePost!}
+                handleClose={() => setShowPostDetails(false)}
+              />
+            ) : (
+              <p className="text-gray-500 font-bold text-lg">No Post Selected!</p>
+            )}
+          </div>
         </div>
       </div>
-
-      {showPostDetails && (
-        <PostInfoPopupModal
-          handleCloseModal={() => setShowPostDetails(false)}
-        />
-      )}
     </Layout>
   );
 };

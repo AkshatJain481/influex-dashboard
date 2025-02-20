@@ -2,7 +2,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
   return (
-    <nav className="bg-white border-b border-gray-300 z-10 fixed w-full">
+    <nav className="bg-gray-100 border-b border-gray-300 z-10 fixed w-full">
       <div className="flex flex-wrap items-center justify-between mx-auto py-4 px-8">
         <GiHamburgerMenu
           size={25}

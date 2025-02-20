@@ -1,4 +1,3 @@
-import TagsInput from "../common/TagsInput";
 import { useState } from "react";
 import { FaTags } from "react-icons/fa";
 // import { TagAutomation } from "../../utils/interfaces";
@@ -7,7 +6,6 @@ import { CiSquarePlus } from "react-icons/ci";
 import Button from "../common/Button";
 
 const TagsComponent = () => {
-  const [tags, setTags] = useState<string[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
   return (
     <div className="w-full">
@@ -18,10 +16,10 @@ const TagsComponent = () => {
         <FaTags size={30} color="gray" />
         <p className="text-xl font-bold text-gray-500">Tags Automation</p>
       </h2>
-      <div className="flex justify-end mt-2">
+      <div className="mt-6 flex justify-end">
         <Button
           icon={<CiSquarePlus className="" size={30} color="white" />}
-          text="Add Automated Response"
+          text="Add"
           type="button"
           className="px-4 py-1 rounded-lg"
           onClick={() => setOpenModal(true)}

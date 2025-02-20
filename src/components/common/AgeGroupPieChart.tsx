@@ -35,7 +35,7 @@ const AgeGroupPieChart = () => {
   ];
 
   return (
-    <div className="w-sm bg-white p-6 shadow-lg border-2 border-gray-300">
+    <div className="min-w-sm flex-grow bg-white p-6 shadow-lg border-2 border-gray-300">
       <h2 className="text-lg font-semibold text-gray-700 mb-24">
         Age Group Distribution
       </h2>

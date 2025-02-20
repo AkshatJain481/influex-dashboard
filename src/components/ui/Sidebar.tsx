@@ -1,5 +1,5 @@
 import { ImCancelCircle } from "react-icons/im";
-import { AiFillHome } from "react-icons/ai";
+import { PiGraphBold } from "react-icons/pi";
 import { MdDashboard } from "react-icons/md";
 import { Link, useLocation } from "react-router";
 
@@ -13,7 +13,7 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
 
   return (
     <div
-      className={`h-full w-64 bg-gray-100  transform fixed z-10 ${
+      className={`h-full w-64 bg-gray-100  transform fixed z-20 border-r border-gray-300 ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       } transition-transform duration-300 ease-in-out`}
     >
@@ -44,7 +44,7 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
             }`}
           >
             <Link to="/metrics" className="flex items-center space-x-4">
-              <AiFillHome size={22} color="gray" />
+              <PiGraphBold size={22} color="gray" />
               <p className="font-semibold text-lg text-gray-700">Metrics</p>
             </Link>
           </li>
