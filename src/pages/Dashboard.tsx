@@ -11,7 +11,7 @@ const Dashboard = () => {
   const fetchMedia = async () => {
     try {
       const response = await fetch(
-        "https://graph.instagram.com/v21.0/8599394353405207/media?fields=id,caption,media_type,media_url,timestamp&access_token=IGQWRPRkJ3OWFlc0wzSnpRYkhrcC1idlNIYjg5MDNZAY0dnYmV1akUxS3d1NWQ3RHZAPUGdXSk8xNTY0WGhjekM3RGZAjMzBKbkJvTVdaZA2ZAmcVJEYTJyb2ZAkMnVfWG13cEhRR0ZAwWm1fVUpkYjZAkOHo0QlJmdUJ6aWMZD"
+        "https://graph.instagram.com/v21.0/8599394353405207/media?fields=id,thumbnail_url,caption,media_type,media_url,timestamp&access_token=IGQWRQUU0yNzdjd0MyY0dJcU9ZAQzRGVmlmMDYwRWFrRm50THlBa1ZAEZAzhKWlNxNjhtOXFoaF9Dc0NYY01TOW5mTUlMUVA5d19zY2tYem0weWZAIbktoMDlkdmNheGhDRVRyR2JiRWpTYVMzRndmQmtnU2hjNVNtUmwyNFNtSEZARYWhsQQZDZD"
       );
       const data = await response.json();
       setPosts(data.data);
