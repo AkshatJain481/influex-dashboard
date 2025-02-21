@@ -1,6 +1,6 @@
 import VideoPlayer from "../common/VideoPlayer";
 import PopupNavbar from "./PopupNavbar";
-import { RxCross2 } from "react-icons/rx";
+import { X } from "lucide-react";
 import { useState } from "react";
 import TagsComponent from "../tabs/TagsComponent";
 import { InstagramMedia } from "../../utils/interfaces";
@@ -37,7 +37,7 @@ const PostInfo = ({
         <ImageViewer imageLink={postDetails.media_url} />
       )}
       <PopupNavbar setActiveTab={setActiveTab} activeTab={activeTab} />
-      <RxCross2
+      <X
         color="gray"
         size={26}
         className="absolute top-2 right-0 cursor-pointer"

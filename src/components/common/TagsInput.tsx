@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RxCross2 } from "react-icons/rx";
+import { X } from "lucide-react";
 
 const TagsInput = ({ tags, setTags }: { tags: string[]; setTags: any }) => {
   const [inputValue, setInputValue] = useState("");
@@ -43,7 +43,7 @@ const TagsInput = ({ tags, setTags }: { tags: string[]; setTags: any }) => {
                 className="ml-2 text-sm text-white hover:text-gray-200 cursor-pointer"
                 onClick={() => handleRemoveTag(index)}
               >
-                <RxCross2 size={14} color="white" />
+                <X size={14} color="white" />
               </button>
             </div>
           ))}

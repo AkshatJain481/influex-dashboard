@@ -1,6 +1,4 @@
-import { FaTags } from "react-icons/fa";
-import { MdDescription } from "react-icons/md";
-import { IoStatsChart } from "react-icons/io5";
+import { Tags, FileText, ChartNoAxesColumnDecreasing } from "lucide-react";
 
 const PopupNavbar = ({
   activeTab,
@@ -11,27 +9,27 @@ const PopupNavbar = ({
 }) => {
   return (
     <div className="flex flex-col min-w-10 h-[250px] items-center justify-around bg-black rounded-lg p-2">
-      <IoStatsChart
+      <ChartNoAxesColumnDecreasing
         color="white"
-        size={20}
+        size={24}
         className={`transition-transform duration-300 hover:translate-x-1 cursor-pointer ${
           activeTab === 0 ? "translate-x-1" : ""
         }`}
         onClick={() => setActiveTab(0)}
       />
 
-      <FaTags
+      <Tags
         color="white"
-        size={20}
+        size={24}
         className={`transition-transform duration-300 hover:translate-x-1 cursor-pointer ${
           activeTab === 1 ? "translate-x-1" : ""
         }`}
         onClick={() => setActiveTab(1)}
       />
 
-      <MdDescription
+      <FileText
         color="white"
-        size={20}
+        size={24}
         className={`transition-transform duration-300 hover:translate-x-1 cursor-pointer ${
           activeTab === 2 ? "translate-x-1" : ""
         }`}

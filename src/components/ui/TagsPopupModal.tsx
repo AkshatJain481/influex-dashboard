@@ -1,7 +1,7 @@
 import TagsInput from "../common/TagsInput";
 import { useState } from "react";
-import { TbSettingsAutomation } from "react-icons/tb";
 import Button from "../common/Button";
+import { Cog } from "lucide-react";
 
 const TagsPopupModal = ({
   handleCloseModal,
@@ -21,7 +21,7 @@ const TagsPopupModal = ({
         onClick={(e) => e.stopPropagation()}
       >
         <h3 className="flex items-center justify-center space-x-4 text-gray-500">
-          <TbSettingsAutomation size={24} />
+          <Cog size={24} />
           <p className="text-xl font-bold"> Automated Response</p>
         </h3>
         <TagsInput tags={tags} setTags={setTags} />

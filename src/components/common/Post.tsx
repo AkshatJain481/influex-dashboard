@@ -1,12 +1,12 @@
-import { FaRegHeart, FaRegCommentDots } from "react-icons/fa";
 import { useMemo, useState } from "react";
 import { InstagramMedia } from "../../utils/interfaces";
+import { Heart, MessageCircleMore } from "lucide-react";
 
 const Post = ({
   post,
   setActivePost,
   setShowPostDetails,
-  setSelectedItems
+  setSelectedItems,
 }: {
   post: InstagramMedia;
   setActivePost: Function;
@@ -35,10 +35,12 @@ const Post = ({
     }
   }, [post.media_url, post.media_type]);
 
-  const handleCheckChange = () =>{
+  const handleCheckChange = () => {
     setIsChecked(!isChecked);
-    setSelectedItems((prevLikes: number) => (isChecked ? prevLikes - 1 : prevLikes + 1));
-  }
+    setSelectedItems((prevLikes: number) =>
+      isChecked ? prevLikes - 1 : prevLikes + 1
+    );
+  };
 
   return (
     <div
@@ -55,15 +57,20 @@ const Post = ({
       {/* Overlay on hover */}
       <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <div className="flex gap-6 text-white">
-        <div className="absolute top-2 right-2">
-      <input type="checkbox" className="w-5 h-5 cursor-pointer" checked={isChecked} onChange={handleCheckChange} />
-    </div>
+          <div className="absolute top-2 right-2">
+            <input
+              type="checkbox"
+              className="w-5 h-5 cursor-pointer"
+              checked={isChecked}
+              onChange={handleCheckChange}
+            />
+          </div>
           <div className="flex items-center gap-2">
-            <FaRegHeart size={20} color="white" />
+            <Heart size={20} color="white" />
             <span className="font-semibold">10</span>
           </div>
           <div className="flex items-center gap-2">
-            <FaRegCommentDots size={20} color="white" />
+            <MessageCircleMore size={20} color="white" />
             <span className="font-semibold">20</span>
           </div>
         </div>
