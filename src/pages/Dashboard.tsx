@@ -15,7 +15,7 @@ const Dashboard = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://graph.instagram.com/v21.0/9659954284015200/media?fields=id,thumbnail_url,caption,media_type,media_url,timestamp&access_token=IGQWRPRjNJOWoxenV0djJGVUZAZAZAGlPRXlwTU1NVXdvdy1HSXZAUell2UjY3QW91bVpaVlNlajNvMGNvRzNXbjdvQm1zU3lYdDMxdjJoejlsVXRiRkVoTHpIZAnIxdjZA6SDd1YmoySi1OZA1RXR2dtellJWkpsUzB4NF9aWWl2NGFGU3ZACUQZDZD"
+        "https://graph.instagram.com/v21.0/8599394353405207/media?fields=id,thumbnail_url,caption,media_type,media_url,timestamp&access_token=IGQWRQUU0yNzdjd0MyY0dJcU9ZAQzRGVmlmMDYwRWFrRm50THlBa1ZAEZAzhKWlNxNjhtOXFoaF9Dc0NYY01TOW5mTUlMUVA5d19zY2tYem0weWZAIbktoMDlkdmNheGhDRVRyR2JiRWpTYVMzRndmQmtnU2hjNVNtUmwyNFNtSEZARYWhsQQZDZD"
       );
       console.log(response);
       if (!response.ok) {

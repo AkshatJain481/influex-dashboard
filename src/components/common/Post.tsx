@@ -18,11 +18,10 @@ const Post = ({
   const MediaComponent = useMemo(() => {
     if (post.media_type === "VIDEO") {
       return (
-        <video
-          className="object-cover h-full w-full"
-          poster={`${post.media_url}?format=jpg`}
-          muted
-          playsInline
+        <img
+          src={post.thumbnail_url}
+          alt={`Post ${post.id}`}
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
       );
     } else {
