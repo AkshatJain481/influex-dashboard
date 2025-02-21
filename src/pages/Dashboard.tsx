@@ -3,20 +3,33 @@ import { useState, useEffect } from "react";
 import { InstagramMedia } from "../utils/interfaces";
 import PostInfo from "../components/ui/PostInfo";
 import Post from "../components/common/Post";
+import { Loader2 } from "lucide-react";
 
 const Dashboard = () => {
   const [showPostDetails, setShowPostDetails] = useState<boolean>(false);
-  const [activePost, setActivePost] = useState<InstagramMedia>();
-  const [posts, setPosts] = useState<InstagramMedia[]>([]);
+  const [activePost, setActivePost] = useState<InstagramMedia | null>(null);
+  const [posts, setPosts] = useState<InstagramMedia[] | null>(null);
+  const [selectedItems, setSelectedItems] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
   const fetchMedia = async () => {
     try {
+      setLoading(true);
       const response = await fetch(
-        "https://graph.instagram.com/v21.0/8599394353405207/media?fields=id,caption,media_type,media_url,timestamp&access_token=IGQWRPRkJ3OWFlc0wzSnpRYkhrcC1idlNIYjg5MDNZAY0dnYmV1akUxS3d1NWQ3RHZAPUGdXSk8xNTY0WGhjekM3RGZAjMzBKbkJvTVdaZA2ZAmcVJEYTJyb2ZAkMnVfWG13cEhRR0ZAwWm1fVUpkYjZAkOHo0QlJmdUJ6aWMZD"
+        "https://graph.instagram.com/v21.0/9659954284015200/media?fields=id,thumbnail_url,caption,media_type,media_url,timestamp&access_token=IGQWRPRjNJOWoxenV0djJGVUZAZAZAGlPRXlwTU1NVXdvdy1HSXZAUell2UjY3QW91bVpaVlNlajNvMGNvRzNXbjdvQm1zU3lYdDMxdjJoejlsVXRiRkVoTHpIZAnIxdjZA6SDd1YmoySi1OZA1RXR2dtellJWkpsUzB4NF9aWWl2NGFGU3ZACUQZDZD"
       );
+      console.log(response);
+      if (!response.ok) {
+        console.error("Failed to fetch media data");
+        setLoading(false);
+        return; 
+      }
+
       const data = await response.json();
       setPosts(data.data);
     } catch (error) {
       console.error("Error fetching media data: ", error);
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -25,42 +38,78 @@ const Dashboard = () => {
   }, []);
   // Sample post data - replace with your actual data
 
+  if(loading){
+    return (
+      <Layout>
+        <div className="h-screen flex items-center justify-center"> 
+        <Loader2 className="animate-spin w-12 h-12 text-black"/>
+      </div>
+      </Layout>
+    )
+  }
+
+
+  if(posts === null && activePost === null){
+    return (
+      <Layout>
+        <div className="h-screen flex items-center justify-center"> 
+        <p className="text-4xl uppercase bg-gray-200 p-2 font-semibold">No posts to show</p>
+      </div>
+      </Layout>
+    )
+  }
+
   return (
     <Layout>
       <div className="p-6">
-        <div className="flex items-center gap-4">
-          <h2 className="text-2xl font-bold mb-6 w-1/2">Media</h2>
-          <h2 className="text-2xl font-bold mb-6 w-1/2">Media Details</h2>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          {/* Fixed height wrapper for posts */}
-          <div className="flex flex-col max-h-[calc(100vh-10rem)] overflow-y-auto">
-            <div className="flex flex-wrap gap-4">
-              {posts.map((post: InstagramMedia) => (
-                <Post
-                  key={post.id}
-                  post={post}
-                  setActivePost={setActivePost}
-                  setShowPostDetails={setShowPostDetails}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Post Details Section - Do not let it affect flex sibling height */}
-          <div className="h-full overflow-y-auto">
-            {showPostDetails ? (
-              <PostInfo
-                postDetails={activePost!}
-                handleClose={() => setShowPostDetails(false)}
-              />
-            ) : (
-              <p className="text-gray-500 font-bold text-lg">No Post Selected!</p>
-            )}
-          </div>
-        </div>
+  <div className="flex items-center gap-4">
+    <h2 className="text-2xl font-bold mb-6 w-1/2 flex justify-between">
+      Media
+      {selectedItems !== null && (
+        <span className="text-gray-500 font-bold text-lg">
+          {selectedItems} selected
+        </span>
+      )}
+    </h2>
+    
+    <h2 className="text-2xl font-bold mb-6 w-1/2">Media Details</h2>
+  </div>
+  
+  <div className="grid grid-cols-2 gap-4">
+    {/* Fixed height wrapper for posts */}
+    <div className="max-h-[calc(100vh-10rem)] overflow-y-auto">
+      <div className="flex flex-wrap gap-4">
+        {posts?.map((post: InstagramMedia) => (
+          <Post
+            key={post.id}
+            post={post}
+            setActivePost={setActivePost}
+            setShowPostDetails={setShowPostDetails}
+            setSelectedItems={setSelectedItems}
+          />
+        ))}
       </div>
+    </div>
+    
+    {/* Post Details Section */}
+    <div className="h-full overflow-y-auto">
+      {posts !== null ? (
+        showPostDetails ? (
+          <PostInfo
+            postDetails={activePost!}
+            handleClose={() => setShowPostDetails(false)}
+          />
+        ) : (
+          <p className="text-gray-500 text-lg font-bold">
+            No Post Selected!
+          </p>
+        )
+      ) : (
+        <div className="text-xl h-full pt-[30%]">There are no posts to show.</div>
+      )}
+    </div>
+  </div>
+</div>
     </Layout>
   );
 };
